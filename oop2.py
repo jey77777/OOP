@@ -209,26 +209,106 @@
 # car2.start_engine()
 # car.start_engine()
 
-class Car:
+# class Car:
 
-    def __init__(self, brand, model, year):
-        self.brand = brand
-        self.model = model
-        self.year = year
+#     def __init__(self, brand, model, year):
+#         self.brand = brand
+#         self.model = model
+#         self.year = year
 
-    def info(self):
-        print(f"Car brand is {self.brand}, model: {self.model}, published: {self.year}")
+#     def info(self):
+#         print(f"Car brand is {self.brand}, model: {self.model}, published: {self.year}")
 
 
-class SportsCar(Car):
-    def __init__(self, brand, model, year, top_speed):
-        super().__init__(brand, model, year)
-        self.top_speed = top_speed
+# class SportsCar(Car):
+#     def __init__(self, brand, model, year, top_speed):
+#         super().__init__(brand, model, year)
+#         self.top_speed = top_speed
 
-    def speed(self):
-        print(f"This {self.brand} {self.model} can reach a top speed of {self.top_speed} km/h!")
+#     def speed(self):
+#         print(f"This {self.brand} {self.model} can reach a top speed of {self.top_speed} km/h!")
 
-sc = SportsCar("Ferrari", "F8", 2023, 340)
-sc.info()    # inherited from Car
-sc.speed()   # from SportsCar
+# sc = SportsCar("Ferrari", "F8", 2023, 340)
+# sc.info()    # inherited from Car
+# sc.speed()   # from SportsCar
 
+class User:
+    HARF = "qwertyuiopasdfghjklzxcvbnm"
+    HARF_U = HARF.upper() + HARF
+
+    def __init__(self, full_name, age, weight, ps):
+        self.verify_full_name(full_name)
+        self.verify_age(age)
+        self.verify_weight(weight)
+        self.verify_ps(ps)
+        self.__fullname = full_name
+        self.__age = age
+        self.__weight = weight
+        self.__ps = ps
+
+
+
+    @classmethod
+    def verify_full_name(cls, full_name):
+        if type(full_name) != str:
+            raise TypeError("siz string malumot kiriting")
+        name_list = full_name.split(' ')
+        if len(name_list) != 3:
+            raise ValueError("siz ism fam ochistva yozishiz kerak")
+        check_alpha = cls.HARF + cls.HARF_U
+        # print(check_alpha)
+        for name in name_list:
+            for n in name:
+                if not n in check_alpha:
+                    raise ValueError("szi faqat lotin harflarida yozing")
+
+    @classmethod
+    def verify_age(cls, age):
+        if type(age) != int:
+            raise TypeError("faqat sonda yozing")
+        if not 18 <= age <= 120:
+            raise ValueError("siz 18 va 120 oralig'ida bolishiz kerak")
+
+    @classmethod
+    def verify_weight(cls, weight):
+        if not type(weight) in (int, float):
+            raise TypeError(" Vaznni sonda yoki qoldiqli yozing")
+
+    @classmethod
+    def verify_ps(cls, ps):
+        if type(ps) != str:
+            raise TypeError("Faqat stringda yozing")
+        ps_list = ps.split(' ')
+        print(ps_list)
+        if len(ps_list) != 2:
+            raise ValueError("siz seria  raqamni yoznig AA XXXXXXX")
+        check_alpha = cls.HARF_U
+        m = ps_list[0].strip(check_alpha)
+
+        if len(m) != 0 or not ps_list[1].isdigit() or len(ps_list[1]) != 7:
+            raise ValueError("boshqatan yoz")
+
+    @property
+    def fullname(self):
+        return self.__fullname
+
+    @fullname.setter
+    def fullname(self,m):
+        self.verify_full_name(m)
+        self.__fullname=m
+
+
+
+    @property
+    def age(self):
+        return self.__age
+
+    @age.setter
+    def age(self,x):
+        self.verify_age(x)
+        self.__age=x
+
+obj = User("Samandar botirjonov Bahromovich", 20, 85, "AV 1134567")
+obj.fullname="Ali Vali Sobir"
+obj.age=25
+print(obj.__dict__)
