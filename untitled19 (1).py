@@ -1,4 +1,4 @@
-"""
+""" 
 1. __str__:
 Bu metod ob'ektni foydalanuvchi uchun yoqimli, oson o'qiladigan shaklda ifodalash uchun ishlatiladi. str() funksiyasi yoki print() chaqirilganda ishlaydi.
 
